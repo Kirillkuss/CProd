@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Reflection;
 using CProd;
 using Microsoft.OpenApi.Models;
@@ -41,10 +42,13 @@ app.MapGet("/cars", () => {
     .WithTags("Cars")
     .WithOpenApi(operation => new(operation){
         Summary = "Получение списка авто",
-        Description = "Получение списка авто"
-    });
+        Description = "Получение списка авто"})
+    .Produces<List<Car>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);   
 
-app.MapGet("/cars/{id}", (int id) => {
+app.MapGet("/cars/{id}", ( [DefaultValue("1")] int id) =>  {
+
         Car? car = null;
         using (PostgresContext db = new PostgresContext()){
                 car  = db.Cars.Find(id);
@@ -55,7 +59,8 @@ app.MapGet("/cars/{id}", (int id) => {
             Summary = "Получение авто по ИД",
             Description = "Получение авто по ИД"})
     .Produces<Car>(StatusCodes.Status200OK)
-    .Produces(StatusCodes.Status404NotFound);    
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);   
 
 app.MapGet("/users",  () => {
         object? response = null;
@@ -67,10 +72,12 @@ app.MapGet("/users",  () => {
     .WithName("users")
     .WithDescription("Получение списка пользователей")
     .WithOpenApi(operation => new(operation){
-        Summary = "Получение списка пользователей",
-    });
+        Summary = "Получение списка пользователей"})
+    .Produces<List<User>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);  
 
-app.MapGet("/users/{id}",  (int id) => {
+app.MapGet("/users/{id}",  ( [DefaultValue("1")] int id) => {
         User? user = null;
         using (PostgresContext db = new PostgresContext()){
                 user = db.Users.Find(id);
@@ -81,7 +88,8 @@ app.MapGet("/users/{id}",  (int id) => {
     .WithOpenApi(operation => new(operation){
         Summary = "Получение пользователя по ИД",})
     .Produces<User>(StatusCodes.Status200OK)
-    .Produces(StatusCodes.Status404NotFound);
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);   
 
 
 app.MapGet("/animals", () => {
@@ -94,10 +102,12 @@ app.MapGet("/animals", () => {
     .WithName("animals")
     .WithOpenApi(operation => new(operation){
         Summary = "Получение списка питомцев",
-        Description = "Получение списка питомцев"
-    });
+        Description = "Получение списка питомцев" })
+    .Produces<List<Animal>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);  
 
-app.MapGet("/animals/{id}", (int id) => {
+app.MapGet("/animals/{id}", ( [DefaultValue("1")] int id) => {
         Animal? animal = null;
         using (PostgresContext db = new PostgresContext()){
                 animal = db.Animals.Find( id );
@@ -108,7 +118,8 @@ app.MapGet("/animals/{id}", (int id) => {
         Summary = "Получение питомца по ИД",
         Description = "Получение питомца по ИД"})
     .Produces<Animal>(StatusCodes.Status200OK)
-    .Produces(StatusCodes.Status404NotFound);
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);   
 
 app.Run();
 

@@ -89,5 +89,20 @@
             Почта
             </summary>
         </member>
+        <member name="T:BaseError">
+            <summary>
+            Ошибка
+            </summary>
+        </member>
+        <member name="P:BaseError.code">
+            <summary>
+            Код
+            </summary>
+        </member>
+        <member name="P:BaseError.message">
+            <summary>
+            Сообщение
+            </summary>
+        </member>
     </members>
 </doc>
