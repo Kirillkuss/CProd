@@ -23,6 +23,9 @@ builder.Services.AddSwaggerGen(options =>{
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+	
+builder.Services.AddControllers(); //поддержка контроллеров
+builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -119,7 +122,16 @@ app.MapGet("/animals/{id}", ( [DefaultValue("1")] int id) => {
         Description = "Получение питомца по ИД"})
     .Produces<Animal>(StatusCodes.Status200OK)
     .Produces<BaseError>(StatusCodes.Status404NotFound)
-    .Produces<BaseError>(StatusCodes.Status500InternalServerError);   
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);
+
+// get Index.cshtml
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+// get cotroller 
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Pets}/{id?}");               
 
 app.Run();
 

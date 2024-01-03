@@ -17,3 +17,7 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = D:\Project\dev\CProd\CProd
 build_property._RazorSourceGeneratorDebug = 
+
+[D:/Project/dev/CProd/CProd/views/home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = dmlld3NcaG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

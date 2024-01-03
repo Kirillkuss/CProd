@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cprod</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta charset="utf-8" />
+    <style>	
+			table, th, td, tr {
+				width: 30px; 
+				height:20px; 
+				border: solid 1px rgb(0, 36, 102); 
+				text-align: center;	 
+				}
+    </style>
+</head>
+<body>
+    <h2>Таблица с питомцами</h2>
+    <h2></h2>
+	<table class="table">
+		<thead class="table-group-divider">
+		<tr>
+			<th scope="col" >№</th>
+			<th scope="col">Имя</th>
+			<th scope="col">Цена</th>
+			<th scope="col">Количество</th>
+		</tr>
+		</thead>
+		<tbody class="table-group-divider">
+		</tbody>
+		<script >			
+			    $(document).ready(function() {
+                $.getJSON('http://localhost:5083/Home/Pets', function(json) {
+                    var tr=[];
+                    for (var i = 0; i < json.length; i++) {
+                        tr.push('<tr>');
+                        tr.push('<td>' + json[i].id + '</td>');
+                        tr.push('<td>' + json[i].name + '</td>');
+                        tr.push('<td>' + json[i].amount + '</td>');
+                        tr.push('<td>' + json[i].count + '</td>');
+                        tr.push('</tr>');
+                        }
+                        $('table').append($(tr.join('')));
+                    });
+                });
+		</script>
+	</table>
+</body>
+</html>
