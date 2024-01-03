@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CProd</name>
+    </assembly>
+    <members>
+        <member name="T:CProd.Animal">
+            <summary>
+            Питомец
+            </summary>
+        </member>
+        <member name="P:CProd.Animal.Id">
+            <summary>
+            Ид питомца
+            </summary>
+        </member>
+        <member name="P:CProd.Animal.Name">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="P:CProd.Animal.Amount">
+            <summary>
+            цена
+            </summary>
+        </member>
+        <member name="P:CProd.Animal.Count">
+            <summary>
+            Количество
+            </summary>
+        </member>
+        <member name="T:CProd.Car">
+            <summary>
+            Машина
+            </summary>
+        </member>
+        <member name="P:CProd.Car.Id">
+            <summary>
+            Ид машины
+            </summary>
+        </member>
+        <member name="P:CProd.Car.Model">
+            <summary>
+            Модель
+            </summary>
+        </member>
+        <member name="P:CProd.Car.Timebuy">
+            <summary>
+            Время покупки
+            </summary>
+        </member>
+        <member name="P:CProd.Car.Coast">
+            <summary>
+            Цена
+            </summary>
+        </member>
+        <member name="P:CProd.Car.Number">
+            <summary>
+            Номер
+            </summary>
+        </member>
+        <member name="T:CProd.User">
+            <summary>
+            Пользователь
+            </summary>
+        </member>
+        <member name="P:CProd.User.Id">
+            <summary>
+            Ид пользоватлея
+            </summary>
+        </member>
+        <member name="P:CProd.User.Username">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="P:CProd.User.PasswordUser">
+            <summary>
+            Пароль
+            </summary>
+        </member>
+        <member name="P:CProd.User.RoleUser">
+            <summary>
+            Роль
+            </summary>
+        </member>
+        <member name="P:CProd.User.Email">
+            <summary>
+            Почта
+            </summary>
+        </member>
+    </members>
+</doc>
