@@ -4,89 +4,84 @@
         <name>CProd</name>
     </assembly>
     <members>
-        <member name="T:CProd.Animal">
+        <member name="T:CProd.Document">
             <summary>
-            Питомец
+            Документ
             </summary>
         </member>
-        <member name="P:CProd.Animal.Id">
+        <member name="P:CProd.Document.IdDocument">
             <summary>
-            Ид питомца
+            Ид документа
             </summary>
         </member>
-        <member name="P:CProd.Animal.Name">
+        <member name="P:CProd.Document.TypeDocument">
             <summary>
-            Имя
+            Тип документа
             </summary>
         </member>
-        <member name="P:CProd.Animal.Amount">
+        <member name="P:CProd.Document.Seria">
             <summary>
-            цена
+            Серия
             </summary>
         </member>
-        <member name="P:CProd.Animal.Count">
-            <summary>
-            Количество
-            </summary>
-        </member>
-        <member name="T:CProd.Car">
-            <summary>
-            Машина
-            </summary>
-        </member>
-        <member name="P:CProd.Car.Id">
-            <summary>
-            Ид машины
-            </summary>
-        </member>
-        <member name="P:CProd.Car.Model">
-            <summary>
-            Модель
-            </summary>
-        </member>
-        <member name="P:CProd.Car.Timebuy">
-            <summary>
-            Время покупки
-            </summary>
-        </member>
-        <member name="P:CProd.Car.Coast">
-            <summary>
-            Цена
-            </summary>
-        </member>
-        <member name="P:CProd.Car.Number">
+        <member name="P:CProd.Document.Numar">
             <summary>
             Номер
             </summary>
         </member>
-        <member name="T:CProd.User">
+        <member name="P:CProd.Document.Snils">
             <summary>
-            Пользователь
+            Снилс
             </summary>
         </member>
-        <member name="P:CProd.User.Id">
+        <member name="P:CProd.Document.Polis">
             <summary>
-            Ид пользоватлея
+            Полис
             </summary>
         </member>
-        <member name="P:CProd.User.Username">
+        <member name="T:CProd.Patient">
+            <summary>
+            Пациент
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.IdPatient">
+            <summary>
+            Ид пациента
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.Surname">
+            <summary>
+            Фамилия
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.Name">
             <summary>
             Имя
             </summary>
         </member>
-        <member name="P:CProd.User.PasswordUser">
+        <member name="P:CProd.Patient.FullName">
             <summary>
-            Пароль
+            Отчество
             </summary>
         </member>
-        <member name="P:CProd.User.RoleUser">
+        <member name="P:CProd.Patient.Gender">
             <summary>
-            Роль
+            Пол
             </summary>
         </member>
-        <member name="P:CProd.User.Email">
+        <member name="P:CProd.Patient.Phone">
             <summary>
-            Почта
+            Номер телефона
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.Address">
+            <summary>
+            Адрес
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.Document">
+            <summary>
+            Документ
             </summary>
         </member>
         <member name="T:BaseError">

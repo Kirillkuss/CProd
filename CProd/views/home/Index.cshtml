@@ -14,15 +14,17 @@
     </style>
 </head>
 <body>
-    <h2>Таблица с питомцами</h2>
+    <h2>Таблица с документами</h2>
     <h2></h2>
 	<table class="table">
 		<thead class="table-group-divider">
 		<tr>
 			<th scope="col" >№</th>
-			<th scope="col">Имя</th>
-			<th scope="col">Цена</th>
-			<th scope="col">Количество</th>
+			<th scope="col">Тип документа</th>
+			<th scope="col">Серия</th>
+			<th scope="col">Номер</th>
+			<th scope="col">Снилс</th>
+			<th scope="col">Полис</th>
 		</tr>
 		</thead>
 		<tbody class="table-group-divider">
@@ -33,10 +35,12 @@
                     var tr=[];
                     for (var i = 0; i < json.length; i++) {
                         tr.push('<tr>');
-                        tr.push('<td>' + json[i].id + '</td>');
-                        tr.push('<td>' + json[i].name + '</td>');
-                        tr.push('<td>' + json[i].amount + '</td>');
-                        tr.push('<td>' + json[i].count + '</td>');
+                        tr.push('<td>' + json[i].idDocument + '</td>');
+                        tr.push('<td>' + json[i].typeDocument + '</td>');
+                        tr.push('<td>' + json[i].seria + '</td>');
+                        tr.push('<td>' + json[i].numar + '</td>');
+						tr.push('<td>' + json[i].snils + '</td>');
+						tr.push('<td>' + json[i].polis + '</td>');
                         tr.push('</tr>');
                         }
                         $('table').append($(tr.join('')));

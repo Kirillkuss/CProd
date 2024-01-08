@@ -11,10 +11,10 @@ public class HomeController : Controller{
 
         // get controller
         [HttpGet]
-        public List<Animal> Pets(){
-            List<Animal>? response = null;
+        public List<Document> Pets(){
+            List<Document>? response = null;
             using (PostgresContext db = new PostgresContext()){
-                response = db.Animals.ToList();
+                response = db.Documents.ToList();
             }
             return response;
         }

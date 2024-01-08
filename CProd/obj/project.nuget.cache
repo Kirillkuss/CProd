@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Bb88FCMx0cCz+Aj6GAg+6s1/EtSmOFgQgS5NDo8nTKDdIvQqK3UQA/uDMo3vIPrUdsp3RgL0Y0ejt0jO68pqwQ==",
+  "dgSpecHash": "WhNLssSEM6bg40HukweSS12hfFYDYZ+mUCx0kl/1LG+S9rKqWAHNzyaVd4OoH80oS2ln2O8HFt88FOa5ZVCA1g==",
   "success": true,
   "projectFilePath": "D:\\Project\\dev\\CProd\\CProd\\CProd.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\barysevich_k\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.0\\microsoft.aspnetcore.openapi.8.0.0.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
@@ -16,6 +17,7 @@
     "C:\\Users\\barysevich_k\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.0\\microsoft.entityframeworkcore.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.0\\microsoft.entityframeworkcore.analyzers.8.0.0.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\microsoft.entityframeworkcore.design\\8.0.0\\microsoft.entityframeworkcore.design.8.0.0.nupkg.sha512",
+    "C:\\Users\\barysevich_k\\.nuget\\packages\\microsoft.entityframeworkcore.proxies\\8.0.0\\microsoft.entityframeworkcore.proxies.8.0.0.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.0\\microsoft.entityframeworkcore.relational.8.0.0.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\8.0.0\\microsoft.entityframeworkcore.tools.8.0.0.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
@@ -46,6 +48,7 @@
     "C:\\Users\\barysevich_k\\.nuget\\packages\\system.composition.hosting\\6.0.0\\system.composition.hosting.6.0.0.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\system.composition.runtime\\6.0.0\\system.composition.runtime.6.0.0.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\system.composition.typedparts\\6.0.0\\system.composition.typedparts.6.0.0.nupkg.sha512",
+    "C:\\Users\\barysevich_k\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\system.io.pipelines\\6.0.3\\system.io.pipelines.6.0.3.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\system.reflection.metadata\\6.0.1\\system.reflection.metadata.6.0.1.nupkg.sha512",
     "C:\\Users\\barysevich_k\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",

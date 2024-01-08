@@ -109,3 +109,5 @@ D:\Project\dev\CProd\CProd\bin\Debug\net8.0\Swashbuckle.AspNetCore.Annotations.d
 D:\Project\dev\CProd\CProd\obj\Debug\net8.0\CProd.sourcelink.json
 D:\Project\dev\CProd\CProd\obj\Debug\net8.0\CProd.RazorAssemblyInfo.cache
 D:\Project\dev\CProd\CProd\obj\Debug\net8.0\CProd.RazorAssemblyInfo.cs
+D:\Project\dev\CProd\CProd\bin\Debug\net8.0\Castle.Core.dll
+D:\Project\dev\CProd\CProd\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll

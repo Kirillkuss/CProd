@@ -1,123 +1,136 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CProod;
 using Microsoft.EntityFrameworkCore;
 
 namespace CProd;
-
 public partial class PostgresContext : DbContext
 {
     public PostgresContext(){
     }
-    
+
     public PostgresContext(DbContextOptions<PostgresContext> options): base(options){
     }
 
-    public virtual DbSet<Animal> Animals { get; set; }
-
-    public virtual DbSet<Car> Cars { get; set; }
-
-    public virtual DbSet<Person> People { get; set; }
-
-    public virtual DbSet<PersonAnimal> PersonAnimals { get; set; }
-
-    public virtual DbSet<User> Users { get; set; }
-
+    public virtual DbSet<CardPatient> CardPatients { get; set; }
+    public virtual DbSet<Complaint> Complaints { get; set; }
+    public virtual DbSet<Doctor> Doctors { get; set; }
+    public virtual DbSet<Document> Documents { get; set; }
+    public virtual DbSet<Drug> Drugs { get; set; }
+    public virtual DbSet<DrugTreatment> DrugTreatments { get; set; }
+    public virtual DbSet<Patient> Patients { get; set; }
+    public virtual DbSet<RecordPatient> RecordPatients { get; set; }
+    public virtual DbSet<RehabilitationSolution> RehabilitationSolutions { get; set; }
+    public virtual DbSet<Treatment> Treatments { get; set; }
+    public virtual DbSet<TypeComplaint> TypeComplaints { get; set; }
+    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-         => optionsBuilder.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=admin");
-
+         => optionsBuilder.UseNpgsql("Host=localhost;Database=Klinika;Username=postgres;Password=admin");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("pg_catalog", "adminpack");
 
-        modelBuilder.Entity<Animal>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("animal_pkey");
-
-            entity.ToTable("animal");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Amount).HasColumnName("amount");
-            entity.Property(e => e.Count).HasColumnName("count");
-            entity.Property(e => e.Name)
-                .HasMaxLength(20)
-                .HasColumnName("name");
+        modelBuilder.Entity<CardPatient>(entity =>{    
+            entity.HasKey( e => e.IdCardPatient ).HasName( "card_patient_pkey" );
+            entity.ToTable( "card_patient" );
+            entity.Property( e => e.IdCardPatient ).HasColumnName( "id_card_patient" );
+            entity.Property( e => e.Diagnosis ).HasMaxLength(50).HasColumnName( "diagnosis" );
+            entity.Property( e => e.Allergy ).HasColumnName( "allergy" );
+            entity.Property( e => e.Note ).HasMaxLength(255).HasColumnName( "note" );
+            entity.Property(e => e.Conclusion ).HasMaxLength(255).HasColumnName( "сonclusion" );
+            entity.HasOne(d => d.Patient).WithOne().HasForeignKey<Patient>(p => p.IdPatient);
         });
 
-        modelBuilder.Entity<Car>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("car_pkey");
-
-            entity.ToTable("car");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Coast)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("coast");
-            entity.Property(e => e.Model)
-                .HasMaxLength(20)
-                .HasColumnName("model");
-            entity.Property(e => e.Number).HasColumnName("number");
-            entity.Property(e => e.Timebuy)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("timebuy");
+        modelBuilder.Entity<Complaint>(entity =>{
+            entity.HasKey( e => e.IdComplaint ).HasName( "complaint_pkey" );
+            entity.ToTable( "complaint" );
+            entity.Property( e => e.IdComplaint ).HasColumnName( "id_complaint" );
+            entity.Property( e => e.FunctionalImpairment ).HasMaxLength(100).HasColumnName( "functional_impairment" );
         });
 
-        modelBuilder.Entity<Person>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("person_pkey");
-
-            entity.ToTable("person");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Login)
-                .HasMaxLength(20)
-                .HasColumnName("login");
-            entity.Property(e => e.Name)
-                .HasMaxLength(20)
-                .HasColumnName("name");
-            entity.Property(e => e.Phone)
-                .HasMaxLength(13)
-                .HasColumnName("phone");
-            entity.Property(e => e.Wallet).HasColumnName("wallet");
+        modelBuilder.Entity<Doctor>(entity =>{
+            entity.HasKey( e => e.IdDoctor ).HasName( "doctor_pkey" );
+            entity.ToTable( "doctor" );
+            entity.Property( e => e.IdDoctor ).HasColumnName( "id_doctor" );
+            entity.Property( e => e.Surname ).HasMaxLength(30).HasColumnName( "surname" );
+            entity.Property( e => e.Name ).HasMaxLength(30).HasColumnName( "name" );
+            entity.Property( e => e.FullName ).HasMaxLength(30).HasColumnName( "full_name" );
         });
 
-        modelBuilder.Entity<PersonAnimal>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("person_animal");
-
-            entity.Property(e => e.Idanimal).HasColumnName("idanimal");
-            entity.Property(e => e.Idperson).HasColumnName("idperson");
-
-            entity.HasOne(d => d.IdanimalNavigation).WithMany()
-                .HasForeignKey(d => d.Idanimal)
-                .HasConstraintName("person_animal_idanimal_fkey");
-
-            entity.HasOne(d => d.IdpersonNavigation).WithMany()
-                .HasForeignKey(d => d.Idperson)
-                .HasConstraintName("person_animal_idperson_fkey");
+       modelBuilder.Entity<Document>(entity =>{    
+            entity.HasKey( e => e.IdDocument ).HasName( "document_pkey" );
+            entity.ToTable( "document" );
+            entity.Property( e => e.IdDocument ).HasColumnName( "id_document" );
+            entity.Property( e => e.TypeDocument ).HasMaxLength(40).HasColumnName( "type_document" );
+            entity.Property( e => e.Seria ).HasMaxLength(20).HasColumnName( "seria" );
+            entity.Property( e => e.Numar ).HasMaxLength(20).HasColumnName( "numar" );
+            entity.Property(e => e.Snils ).HasMaxLength(20).HasColumnName( "snils" );
+            entity.Property(e => e.Polis ).HasMaxLength(20).HasColumnName( "polis" );
         });
 
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("users_pkey");
+        modelBuilder.Entity<Drug>(entity =>{
+            entity.HasKey( e => e.IdDrug ).HasName( "drug_pkey" );
+            entity.ToTable( "drug" );
+            entity.Property( e => e.IdDrug ).HasColumnName( "id_dr" );
+            entity.Property( e => e.Name ).HasMaxLength(255).HasColumnName( "name" );
+            entity.HasOne(d => d.DrugTreatment).WithOne().HasForeignKey<DrugTreatment>(p => p.IdDrugTreatment);
+        });
 
-            entity.ToTable("users");
+        modelBuilder.Entity<DrugTreatment>(entity =>{
+            entity.HasKey( e => e.IdDrugTreatment ).HasName( "drug_treatment_pkey" );
+            entity.ToTable( "drug_treatment" );
+            entity.Property( e => e.IdDrugTreatment ).HasColumnName( "id_drug" );
+            entity.Property( e => e.Name ).HasMaxLength(255).HasColumnName( "name" );
+        });
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Email)
-                .HasMaxLength(50)
-                .HasColumnName("email");
-            entity.Property(e => e.PasswordUser)
-                .HasMaxLength(50)
-                .HasColumnName("password_user");
-            entity.Property(e => e.RoleUser)
-                .HasMaxLength(50)
-                .HasColumnName("role_user");
-            entity.Property(e => e.Username)
-                .HasMaxLength(50)
-                .HasColumnName("username");
+        modelBuilder.Entity<Patient>(entity =>{
+            entity.HasKey( e => e.IdPatient ).HasName( "patient_pkey" );
+            entity.ToTable( "patient" );
+            entity.Property( e => e.IdPatient ).HasColumnName( "id_patient" );
+            entity.Property( e => e.Surname ).HasMaxLength(30).HasColumnName( "surname" );
+            entity.Property( e => e.Name ).HasMaxLength(30).HasColumnName( "name" );
+            entity.Property( e => e.FullName ).HasMaxLength(30).HasColumnName( "full_name" );
+            entity.Property(e => e.Gender ).HasMaxLength(5).HasColumnName( "gender" );
+            entity.Property(e => e.Phone ).HasMaxLength(12).HasColumnName( "phone" );
+            entity.Property(e => e.Address ).HasMaxLength(100).HasColumnName( "address" );
+            entity.HasOne(d => d.Document).WithOne().HasForeignKey<Document>(p => p.IdDocument);
+        });
+
+        modelBuilder.Entity<RecordPatient>(entity =>{
+            entity.HasKey( e => e.IdRecord ).HasName( "record_patient_pkey" );
+            entity.ToTable( "record_patient" );
+            entity.Property( e => e.IdRecord ).HasColumnName( "id_record" );
+            entity.Property( e => e.DateRecord ).HasColumnName( "date_record" );
+            entity.Property( e => e.DateAppointment ).HasColumnName( "date_appointment" );
+            entity.Property( e => e.NumberRoom ).HasMaxLength(30).HasColumnName( "number_room" ); 
+            entity.HasOne(d => d.Doctor).WithOne().HasForeignKey<Doctor>(p => p.IdDoctor);
+            entity.Property(e => e.CardPatientId ).HasMaxLength(100).HasColumnName( "card_patient_id" );
+        });
+
+       modelBuilder.Entity<RehabilitationSolution>(entity =>{
+            entity.HasKey( e => e.IdRehabilitationSolution ).HasName( "rehabilitation_solution_pkey" );
+            entity.ToTable( "rehabilitation_solution" );
+            entity.Property( e => e.IdRehabilitationSolution ).HasColumnName( "id_rehabilitation_solution" );
+            entity.Property( e => e.Name ).HasMaxLength(100).HasColumnName( "name" );
+            entity.Property( e => e.SurveyPlan ).HasMaxLength(255).HasColumnName( "survey_plan" );
+        });
+
+        modelBuilder.Entity<Treatment>(entity =>{
+            entity.HasKey( e => e.IdTreatment ).HasName( "treatment_pkey" );
+            entity.ToTable( "record_patient" );
+            entity.Property( e => e.IdTreatment ).HasColumnName( "id_treatment" );
+            entity.Property( e => e.TimeStartTreatment ).HasColumnName( "time_start_treatment" );
+            entity.Property( e => e.EndTimeTreatment ).HasColumnName( "end_time_treatment" );
+            entity.HasOne(d => d.Drug).WithOne().HasForeignKey<Drug>(p => p.IdDrug);
+            entity.HasOne(d => d.RehabilitationSolution).WithOne().HasForeignKey<RehabilitationSolution>(p => p.IdRehabilitationSolution);
+            entity.Property(e => e.CardPatientId ).HasColumnName( "card_patient_id" );
+            entity.HasOne(d => d.Doctor).WithOne().HasForeignKey<Doctor>(p => p.IdDoctor);
+        });
+
+        modelBuilder.Entity<TypeComplaint>(entity =>{
+            entity.HasKey( e => e.IdTypeComplaint ).HasName( "type_complaint_pkey" );
+            entity.ToTable( "type_complaint" );
+            entity.Property( e => e.IdTypeComplaint ).HasColumnName( "id_type_complaint" );
+            entity.Property( e => e.name ).HasMaxLength(150).HasColumnName( "name" );
+            entity.HasOne( e => e.Complaint ).WithOne().HasForeignKey<Complaint>( c => c.IdComplaint );
         });
 
         OnModelCreatingPartial(modelBuilder);
