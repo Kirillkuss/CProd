@@ -12,7 +12,9 @@ public partial class CardPatient{
 
     public string Conclusion { get; set; } = null!;
 
-    //public List<TypeComplaint>? TypeComplaint { get; set; }
+    public List<TypeComplaint> TypeComplaint { get; set; } = new();
+
+    public int PatientId;
 
     public  Patient? Patient { get; set; }
 }

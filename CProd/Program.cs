@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Reflection;
 using CProd;
+using CProod;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -51,36 +52,6 @@ app.MapGet("/doctors",  () => {
     .Produces<List<Doctor>>(StatusCodes.Status200OK)
     .Produces<BaseError>(StatusCodes.Status404NotFound)
     .Produces<BaseError>(StatusCodes.Status500InternalServerError);
-
- app.MapGet("/complaints",  () => {
-        object? response = null;
-        using (PostgresContext db = new PostgresContext()){
-                response = db.Complaints.ToList();
-            }
-        return response; })
-    .WithTags("6. Сomplaints")
-    .WithName("complaints")
-    .WithDescription("Получение списка жалоб")
-    .WithOpenApi(operation => new(operation){
-        Summary = "Получение списка жалоб"})
-    .Produces<List<Complaint>>(StatusCodes.Status200OK)
-    .Produces<BaseError>(StatusCodes.Status404NotFound)
-    .Produces<BaseError>(StatusCodes.Status500InternalServerError);
-
-app.MapGet("/type-complaints",  () => {
-        object? response = null;
-        using (PostgresContext db = new PostgresContext()){
-                response = db.TypeComplaints.ToList();
-            }
-        return response; })
-    .WithTags("6. Сomplaints")
-    .WithName("type-complaints")
-    .WithDescription("Получение списка под жалоб")
-    .WithOpenApi(operation => new(operation){
-        Summary = "Получение списка под жалоб"})
-    .Produces<List<TypeComplaint>>(StatusCodes.Status200OK)
-    .Produces<BaseError>(StatusCodes.Status404NotFound)
-    .Produces<BaseError>(StatusCodes.Status500InternalServerError);              
 
 app.MapGet("/patient",  () => {
         object? response = null;
@@ -141,6 +112,161 @@ app.MapGet("/documents/{id}", ( [DefaultValue("1")] int id) => {
     .Produces<Document>(StatusCodes.Status200OK)
     .Produces<BaseError>(StatusCodes.Status404NotFound)
     .Produces<BaseError>(StatusCodes.Status500InternalServerError);
+
+app.MapGet("/card-patients", () => {
+        object? response = null;
+        using (PostgresContext db = new PostgresContext()){
+            //.Include( p => p.TypeComplaint )
+            response = db.CardPatients.Include( p => p.Patient )
+                                      .Include( d => d.Patient.Document )
+                                      .ToList();
+        }
+        return response; })
+    .WithTags("4. Card Patients")
+    .WithName("card-patients")
+    .WithOpenApi(operation => new(operation){
+        Summary = "Получение списка карт паицентов",
+        Description = "Получение списка карт пациентов" })
+    .Produces<List<CardPatient>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);
+
+app.MapGet("/record-patients", () => {
+        object? response = null;
+        using (PostgresContext db = new PostgresContext()){
+            response = db.RecordPatients.Include( d => d.Doctor ).ToList();
+        }
+        return response; })
+    .WithTags("5. Record Patients")
+    .WithName("record-patients")
+    .WithOpenApi(operation => new(operation){
+        Summary = "Получение списка записей паицентов",
+        Description = "Получение списка записей пациентов" })
+    .Produces<List<RecordPatient>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);
+
+app.MapGet("/record-patients/{id}", ( [DefaultValue("1")] int id) => {
+        object? response = null;
+        using (PostgresContext db = new PostgresContext()){
+            response = db.RecordPatients.Include( d => d.Doctor ).FirstOrDefault(p => p.IdRecord == id);
+        }
+        return response; })
+    .WithTags("5. Record Patients")
+    .WithName("record-patients/{id}")
+    .WithOpenApi(operation => new(operation){
+        Summary = "Получение списка записей паицентов",
+        Description = "Получение списка записей пациентов" })
+    .Produces<RecordPatient>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);   
+
+ app.MapGet("/complaints",  () => {
+        object? response = null;
+        using (PostgresContext db = new PostgresContext()){
+                response = db.Complaints.ToList();
+            }
+        return response; })
+    .WithTags("6. Сomplaints")
+    .WithName("complaints")
+    .WithDescription("Получение списка жалоб")
+    .WithOpenApi(operation => new(operation){
+        Summary = "Получение списка жалоб"})
+    .Produces<List<Complaint>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);
+
+app.MapGet("/type-complaints",  () => {
+        object? response = null;
+        using (PostgresContext db = new PostgresContext()){
+                response = db.TypeComplaints.ToList();
+            }
+        return response; })
+    .WithTags("6. Сomplaints")
+    .WithName("type-complaints")
+    .WithDescription("Получение списка под жалоб")
+    .WithOpenApi(operation => new(operation){
+        Summary = "Получение списка под жалоб"})
+    .Produces<List<TypeComplaint>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);    
+
+app.MapGet("/treatments", () => {
+        var response = new List<Treatment>();
+        using (PostgresContext db = new PostgresContext()){
+            response = db.Treatments.Include( d => d.Drug ).Include( r => r.RehabilitationSolution ).Include( d => d.Doctor )
+                                    .Include( d => d.Drug.DrugTreatment )
+                                    .ToList();
+        }
+        return response; })
+    .WithTags("7. Treatments")
+    .WithName("treatments")
+    .WithOpenApi(operation => new(operation){ Summary = "Получение списка лечений пациентов", Description = "Получение списка лечений пациентов" })
+    .Produces<List<Treatment>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);
+
+app.MapGet("/treatments/{id}", ([DefaultValue("1")] int id) => {
+        object? response = null;
+        using (PostgresContext db = new PostgresContext()){
+            response = db.Treatments.Include( d => d.Drug ).Include( r => r.RehabilitationSolution ).Include( d => d.Doctor )
+                                    .Include( d => d.Drug.DrugTreatment )
+                                    .FirstOrDefault(p => p.IdTreatment == id);
+        }
+        return response; })
+    .WithTags("7. Treatments")
+    .WithName("/treatments/{id}")
+    .WithOpenApi(operation => new(operation){ Summary = "Получение по ИД лечение пациента", Description = "Получение по ИД лечение пациента" })
+    .Produces<Treatment>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);    
+
+app.MapGet("/drug-treatments", () => {
+        object? response = null;
+        using (PostgresContext db = new PostgresContext()){
+            response = db.DrugTreatments.ToList();
+        }
+        return response; })
+    .WithTags("8. Drug-treatments")
+    .WithName("drug-treatments")
+    .WithOpenApi(operation => new(operation){
+        Summary = "Получение списка медикаментозного лечения",
+        Description = "Получение списка медикаментозного лечения" })
+    .Produces<List<DrugTreatment>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);
+
+app.MapGet("/drug", () => {
+        var response = new List<Drug>();
+        using (PostgresContext db = new PostgresContext()){
+            response = db.Drugs.Include( t => t.DrugTreatment ).ToList();
+            Console.WriteLine(response);
+        }
+        return response; })
+    .WithTags("8. Drug-treatments")
+    .WithName("drug")
+    .WithOpenApi(operation => new(operation){
+        Summary = "Получение списка лекарств",
+        Description = "Получение списка лекарств" })
+    .Produces<List<Drug>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);
+
+app.MapGet("/rehabilitation-solutions", () => {
+        object? response = null;
+        using (PostgresContext db = new PostgresContext()){
+            response = db.RehabilitationSolutions.ToList();
+        }
+        return response; })
+    .WithTags("9. Rehabilitation Solutions")
+    .WithName("rehabilitation-solutions")
+    .WithOpenApi(operation => new(operation){
+        Summary = "Получение списка реаблитационных лечений",
+        Description = "Получение списка  реаблитационных лечений" })
+    .Produces<List<RehabilitationSolution>>(StatusCodes.Status200OK)
+    .Produces<BaseError>(StatusCodes.Status404NotFound)
+    .Produces<BaseError>(StatusCodes.Status500InternalServerError);                                  
+
 
 // get Index.cshtml
 app.MapControllerRoute(

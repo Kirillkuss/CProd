@@ -1,5 +1,6 @@
 
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace CProd;
 /// <summary>
@@ -42,6 +43,8 @@ public partial class Patient{
     /// </summary>
     [DefaultValue("Проспект Мирный д.10 ув. 3")]
     public string Address { get; set; } = null!;
+     [ScaffoldColumn(false)] 
+    public int Document_id;
     /// <summary>
     /// Документ
     /// </summary>

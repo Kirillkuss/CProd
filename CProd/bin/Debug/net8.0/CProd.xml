@@ -39,6 +39,41 @@
             Полис
             </summary>
         </member>
+        <member name="T:CProd.Drug">
+            <summary>
+            Лекарство
+            </summary>
+        </member>
+        <member name="P:CProd.Drug.IdDrug">
+            <summary>
+            Ид лекарства
+            </summary>
+        </member>
+        <member name="P:CProd.Drug.Name">
+            <summary>
+            Название лекарства
+            </summary>
+        </member>
+        <member name="P:CProd.Drug.DrugTreatment">
+            <summary>
+            Медикаментозное лечение
+            </summary>
+        </member>
+        <member name="T:CProd.DrugTreatment">
+            <summary>
+            Медикаментозное леяение
+            </summary>
+        </member>
+        <member name="P:CProd.DrugTreatment.IdDrugTreatment">
+            <summary>
+            Ид медикаментозное лечение
+            </summary>
+        </member>
+        <member name="P:CProd.DrugTreatment.Name">
+            <summary>
+            Наименование медикоментозного лечения
+            </summary>
+        </member>
         <member name="T:CProd.Patient">
             <summary>
             Пациент

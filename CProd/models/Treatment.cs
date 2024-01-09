@@ -10,11 +10,17 @@ public partial class Treatment{
 
     public DateTime EndTimeTreatment { get; set; }
 
-    public Drug? Drug { get; set; }
+    public int DrugId;
 
-    public RehabilitationSolution? RehabilitationSolution { get; set; }
+    public Drug? Drug { get; set; } = new Drug();
+
+    public int RehabilitationSolutionId;
+
+    public RehabilitationSolution? RehabilitationSolution { get; set; } = new RehabilitationSolution();
 
     public int CardPatientId { get; set; }
 
-    public Doctor? Doctor { get; set; }
+    public int DoctorId;
+
+    public Doctor? Doctor { get; set; } = new Doctor();
 }

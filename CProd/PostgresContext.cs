@@ -36,7 +36,8 @@ public partial class PostgresContext : DbContext
             entity.Property( e => e.Allergy ).HasColumnName( "allergy" );
             entity.Property( e => e.Note ).HasMaxLength(255).HasColumnName( "note" );
             entity.Property(e => e.Conclusion ).HasMaxLength(255).HasColumnName( "сonclusion" );
-            entity.HasOne(d => d.Patient).WithOne().HasForeignKey<Patient>(p => p.IdPatient);
+            entity.Property(e => e.PatientId ).HasColumnName( "patient_id" );
+            entity.HasOne(d => d.Patient).WithOne().HasForeignKey<CardPatient>(cp => cp.PatientId);
         });
 
         modelBuilder.Entity<Complaint>(entity =>{
@@ -69,15 +70,16 @@ public partial class PostgresContext : DbContext
         modelBuilder.Entity<Drug>(entity =>{
             entity.HasKey( e => e.IdDrug ).HasName( "drug_pkey" );
             entity.ToTable( "drug" );
-            entity.Property( e => e.IdDrug ).HasColumnName( "id_dr" );
+            entity.Property( e => e.IdDrug ).HasColumnName( "id_drug" );
             entity.Property( e => e.Name ).HasMaxLength(255).HasColumnName( "name" );
-            entity.HasOne(d => d.DrugTreatment).WithOne().HasForeignKey<DrugTreatment>(p => p.IdDrugTreatment);
+            entity.Property( e => e.DrugTreatmentId ).HasColumnName( "drug_treatment_id" );
+            entity.HasOne(d => d.DrugTreatment).WithOne().HasForeignKey<Drug>(p => p.DrugTreatmentId);
         });
 
         modelBuilder.Entity<DrugTreatment>(entity =>{
             entity.HasKey( e => e.IdDrugTreatment ).HasName( "drug_treatment_pkey" );
             entity.ToTable( "drug_treatment" );
-            entity.Property( e => e.IdDrugTreatment ).HasColumnName( "id_drug" );
+            entity.Property( e => e.IdDrugTreatment ).HasColumnName( "id_drug_treatment" );
             entity.Property( e => e.Name ).HasMaxLength(255).HasColumnName( "name" );
         });
 
@@ -91,7 +93,8 @@ public partial class PostgresContext : DbContext
             entity.Property(e => e.Gender ).HasMaxLength(5).HasColumnName( "gender" );
             entity.Property(e => e.Phone ).HasMaxLength(12).HasColumnName( "phone" );
             entity.Property(e => e.Address ).HasMaxLength(100).HasColumnName( "address" );
-            entity.HasOne(d => d.Document).WithOne().HasForeignKey<Document>(p => p.IdDocument);
+            entity.Property(e => e.Document_id ).HasColumnName( "document_id" );
+            entity.HasOne(d => d.Document).WithOne().HasForeignKey<Patient>(p => p.Document_id);
         });
 
         modelBuilder.Entity<RecordPatient>(entity =>{
@@ -100,8 +103,9 @@ public partial class PostgresContext : DbContext
             entity.Property( e => e.IdRecord ).HasColumnName( "id_record" );
             entity.Property( e => e.DateRecord ).HasColumnName( "date_record" );
             entity.Property( e => e.DateAppointment ).HasColumnName( "date_appointment" );
-            entity.Property( e => e.NumberRoom ).HasMaxLength(30).HasColumnName( "number_room" ); 
-            entity.HasOne(d => d.Doctor).WithOne().HasForeignKey<Doctor>(p => p.IdDoctor);
+            entity.Property( e => e.NumberRoom ).HasMaxLength(30).HasColumnName( "number_room" );
+            entity.Property( e => e.DoctorId ).HasColumnName( "doctor_id" );  
+            entity.HasOne(d => d.Doctor).WithOne().HasForeignKey<RecordPatient>(rp => rp.DoctorId );
             entity.Property(e => e.CardPatientId ).HasMaxLength(100).HasColumnName( "card_patient_id" );
         });
 
@@ -115,14 +119,17 @@ public partial class PostgresContext : DbContext
 
         modelBuilder.Entity<Treatment>(entity =>{
             entity.HasKey( e => e.IdTreatment ).HasName( "treatment_pkey" );
-            entity.ToTable( "record_patient" );
+            entity.ToTable( "treatment" );
             entity.Property( e => e.IdTreatment ).HasColumnName( "id_treatment" );
             entity.Property( e => e.TimeStartTreatment ).HasColumnName( "time_start_treatment" );
             entity.Property( e => e.EndTimeTreatment ).HasColumnName( "end_time_treatment" );
-            entity.HasOne(d => d.Drug).WithOne().HasForeignKey<Drug>(p => p.IdDrug);
-            entity.HasOne(d => d.RehabilitationSolution).WithOne().HasForeignKey<RehabilitationSolution>(p => p.IdRehabilitationSolution);
+            entity.Property( e => e.DrugId ).HasColumnName( "drug_id" );
+            entity.HasOne(d => d.Drug).WithOne().HasForeignKey<Treatment>(p => p.DrugId);
+            entity.Property( e => e.RehabilitationSolutionId ).HasColumnName( "rehabilitation_solution_id" );
+            entity.HasOne(d => d.RehabilitationSolution).WithOne().HasForeignKey<Treatment>(p => p.RehabilitationSolutionId);
             entity.Property(e => e.CardPatientId ).HasColumnName( "card_patient_id" );
-            entity.HasOne(d => d.Doctor).WithOne().HasForeignKey<Doctor>(p => p.IdDoctor);
+            entity.Property(e => e.DoctorId ).HasColumnName( "doctor_id" );
+            entity.HasOne(d => d.Doctor).WithOne().HasForeignKey<Treatment>(p => p.DoctorId);
         });
 
         modelBuilder.Entity<TypeComplaint>(entity =>{
@@ -131,6 +138,18 @@ public partial class PostgresContext : DbContext
             entity.Property( e => e.IdTypeComplaint ).HasColumnName( "id_type_complaint" );
             entity.Property( e => e.name ).HasMaxLength(150).HasColumnName( "name" );
             entity.HasOne( e => e.Complaint ).WithOne().HasForeignKey<Complaint>( c => c.IdComplaint );
+        });
+
+        modelBuilder.Entity<CardPatientComplaint>(entity =>{
+            entity.HasNoKey().ToTable( "card_patient_complaint" );
+            entity.Property( e => e.CardPatientId ).HasColumnName( "card_patient_id" );
+            entity.Property( e => e.TypeComplaintId ).HasColumnName( "type_complaint_id" );
+            entity.HasOne(e => e.IdTypeComplaintNavigation).WithMany()
+                .HasForeignKey( tp => tp.TypeComplaintId )
+                .HasConstraintName("card_patient_complaint_type_complaint_id_fkey");
+            entity.HasOne(e => e.IdCardPatientNavigation).WithMany()
+                .HasForeignKey( tp => tp.CardPatientId )
+                .HasConstraintName("card_patient_complaint_card_patient_id_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);

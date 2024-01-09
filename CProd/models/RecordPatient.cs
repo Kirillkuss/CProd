@@ -9,8 +9,9 @@ public partial class RecordPatient{
     public DateTime DateAppointment { get; set; }
 
     public int NumberRoom { get; set; }
-
+    public int CardPatientId { get; set; }
+    public int DoctorId;
     public Doctor? Doctor { get; set; }
 
-    public int CardPatientId { get; set; }
+    
 }
