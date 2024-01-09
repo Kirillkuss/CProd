@@ -13,7 +13,7 @@ public class HomeController : Controller{
         [HttpGet]
         public List<Document> Pets(){
             List<Document>? response = null;
-            using (PostgresContext db = new PostgresContext()){
+            using (KlinikaContext db = new KlinikaContext()){
                 response = db.Documents.ToList();
             }
             return response;

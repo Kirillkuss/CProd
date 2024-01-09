@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Reflection;
 using CProd;
-using CProod;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -40,7 +39,7 @@ app.UseHttpsRedirection();
 
 app.MapGet("/doctors",  () => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
                 response = db.Doctors.ToList();
             }
         return response; })
@@ -55,7 +54,7 @@ app.MapGet("/doctors",  () => {
 
 app.MapGet("/patient",  () => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
                 response = db.Patients.Include( d => d.Document).ToList();
             }
         return response; })
@@ -70,7 +69,7 @@ app.MapGet("/patient",  () => {
 
 app.MapGet("/patient/{id}",  ( [DefaultValue("1")] int id) => {
         Patient? patient = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
                 patient = db.Patients.Include( d => d.Document).FirstOrDefault(p => p.IdPatient == id);
                 //Console.WriteLine(patient);
             }
@@ -86,7 +85,7 @@ app.MapGet("/patient/{id}",  ( [DefaultValue("1")] int id) => {
 
 app.MapGet("/documents", () => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
             response = db.Documents.ToList();
         }
         return response; })
@@ -101,7 +100,7 @@ app.MapGet("/documents", () => {
 
 app.MapGet("/documents/{id}", ( [DefaultValue("1")] int id) => {
         Document? document = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
                 document = db.Documents.Find( id );
             }
         return document is Document response? Results.Ok( response ) : Results.NotFound();})
@@ -115,8 +114,8 @@ app.MapGet("/documents/{id}", ( [DefaultValue("1")] int id) => {
 
 app.MapGet("/card-patients", () => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
-            //.Include( p => p.TypeComplaint )
+        using (KlinikaContext db = new KlinikaContext()){
+            //.Include( d => d.TypeComplaints )
             response = db.CardPatients.Include( p => p.Patient )
                                       .Include( d => d.Patient.Document )
                                       .ToList();
@@ -133,7 +132,7 @@ app.MapGet("/card-patients", () => {
 
 app.MapGet("/record-patients", () => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
             response = db.RecordPatients.Include( d => d.Doctor ).ToList();
         }
         return response; })
@@ -148,7 +147,7 @@ app.MapGet("/record-patients", () => {
 
 app.MapGet("/record-patients/{id}", ( [DefaultValue("1")] int id) => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
             response = db.RecordPatients.Include( d => d.Doctor ).FirstOrDefault(p => p.IdRecord == id);
         }
         return response; })
@@ -163,7 +162,7 @@ app.MapGet("/record-patients/{id}", ( [DefaultValue("1")] int id) => {
 
  app.MapGet("/complaints",  () => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
                 response = db.Complaints.ToList();
             }
         return response; })
@@ -178,7 +177,7 @@ app.MapGet("/record-patients/{id}", ( [DefaultValue("1")] int id) => {
 
 app.MapGet("/type-complaints",  () => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
                 response = db.TypeComplaints.ToList();
             }
         return response; })
@@ -193,7 +192,7 @@ app.MapGet("/type-complaints",  () => {
 
 app.MapGet("/treatments", () => {
         var response = new List<Treatment>();
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
             response = db.Treatments.Include( d => d.Drug ).Include( r => r.RehabilitationSolution ).Include( d => d.Doctor )
                                     .Include( d => d.Drug.DrugTreatment )
                                     .ToList();
@@ -208,7 +207,7 @@ app.MapGet("/treatments", () => {
 
 app.MapGet("/treatments/{id}", ([DefaultValue("1")] int id) => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
             response = db.Treatments.Include( d => d.Drug ).Include( r => r.RehabilitationSolution ).Include( d => d.Doctor )
                                     .Include( d => d.Drug.DrugTreatment )
                                     .FirstOrDefault(p => p.IdTreatment == id);
@@ -223,7 +222,7 @@ app.MapGet("/treatments/{id}", ([DefaultValue("1")] int id) => {
 
 app.MapGet("/drug-treatments", () => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
             response = db.DrugTreatments.ToList();
         }
         return response; })
@@ -238,7 +237,7 @@ app.MapGet("/drug-treatments", () => {
 
 app.MapGet("/drug", () => {
         var response = new List<Drug>();
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
             response = db.Drugs.Include( t => t.DrugTreatment ).ToList();
             Console.WriteLine(response);
         }
@@ -254,7 +253,7 @@ app.MapGet("/drug", () => {
 
 app.MapGet("/rehabilitation-solutions", () => {
         object? response = null;
-        using (PostgresContext db = new PostgresContext()){
+        using (KlinikaContext db = new KlinikaContext()){
             response = db.RehabilitationSolutions.ToList();
         }
         return response; })

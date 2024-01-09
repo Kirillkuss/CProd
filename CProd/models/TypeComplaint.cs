@@ -1,10 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
 namespace CProd;
 
-public partial class TypeComplaint{
-
+public partial class TypeComplaint
+{
     public int IdTypeComplaint { get; set; }
 
-    public string name { get; set;} = null!;
+    public string Name { get; set; } = null!;
 
-    public Complaint? Complaint;
+    public int ComplaintId { get; set; }
+
+    public virtual Complaint Complaint { get; set; } = null!;
+
+    public virtual ICollection<CardPatient> CardPatients { get; set; } = new List<CardPatient>();
 }

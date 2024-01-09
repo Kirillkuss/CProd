@@ -1,26 +1,29 @@
-using CProd;
+﻿using System;
+using System.Collections.Generic;
 
-namespace CProod;
+namespace CProd;
 
-public partial class Treatment{
-
+public partial class Treatment
+{
     public int IdTreatment { get; set; }
 
-    public DateTime TimeStartTreatment { get; set;}
+    public DateTime TimeStartTreatment { get; set; }
 
     public DateTime EndTimeTreatment { get; set; }
 
     public int DrugId;
 
-    public Drug? Drug { get; set; } = new Drug();
-
-    public int RehabilitationSolutionId;
-
-    public RehabilitationSolution? RehabilitationSolution { get; set; } = new RehabilitationSolution();
-
     public int CardPatientId { get; set; }
 
     public int DoctorId;
 
-    public Doctor? Doctor { get; set; } = new Doctor();
+    public int RehabilitationSolutionId;
+
+    //public virtual CardPatient CardPatient { get; set; } = null!;
+
+    public virtual Doctor Doctor { get; set; } = null!;
+
+    public virtual Drug Drug { get; set; } = null!;
+
+    public virtual RehabilitationSolution RehabilitationSolution { get; set; } = null!;
 }

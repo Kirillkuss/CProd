@@ -1,26 +1,13 @@
-using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CProd;
-/// <summary>
-/// Медикаментозное леяение
-/// </summary>
-public partial class DrugTreatment{
-    /// <summary>
-    /// Ид медикаментозное лечение
-    /// </summary>
-    [DefaultValue("1")]
-    public int IdDrugTreatment { get; set; } 
-    /// <summary>
-    /// Наименование медикоментозного лечения
-    /// </summary>
-    [DefaultValue("Наименование")]
+
+public partial class DrugTreatment
+{
+    public int IdDrugTreatment { get; set; }
+
     public string Name { get; set; } = null!;
 
-    public override string ToString()
-    {
-        return "{\n"
-                + " IdDrugTreatment=" + IdDrugTreatment 
-                + ",\n Name=" + Name
-                +"\n}";
-    }
+    //public virtual ICollection<Drug> Drugs { get; set; } = new List<Drug>();
 }
