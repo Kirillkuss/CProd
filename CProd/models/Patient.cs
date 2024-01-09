@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace CProd;
 
-public partial class Patient
-{
+public partial class Patient{
     public int IdPatient { get; set; }
 
     public string Surname { get; set; } = null!;
@@ -20,8 +17,6 @@ public partial class Patient
     public string Address { get; set; } = null!;
 
     public int? DocumentId;
-
-    //public virtual CardPatient? CardPatient { get; set; }
 
     public virtual Document? Document { get; set; }
 }

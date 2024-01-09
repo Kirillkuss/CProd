@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace CProd;
 
-public partial class Treatment
-{
+public partial class Treatment{
     public int IdTreatment { get; set; }
 
     public DateTime TimeStartTreatment { get; set; }
@@ -18,8 +15,6 @@ public partial class Treatment
     public int DoctorId;
 
     public int RehabilitationSolutionId;
-
-    //public virtual CardPatient CardPatient { get; set; } = null!;
 
     public virtual Doctor Doctor { get; set; } = null!;
 

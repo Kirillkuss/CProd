@@ -4,15 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CProd;
 
-public partial class KlinikaContext : DbContext
-{
-    public KlinikaContext()
-    {
+public partial class KlinikaContext : DbContext{
+    public KlinikaContext(){
     }
 
-    public KlinikaContext(DbContextOptions<KlinikaContext> options)
-        : base(options)
-    {
+    public KlinikaContext(DbContextOptions<KlinikaContext> options): base(options){
     }
 
     public virtual DbSet<CardPatient> CardPatients { get; set; }
@@ -40,8 +36,7 @@ public partial class KlinikaContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Host=localhost;Database=Klinika;Username=postgres;Password=admin");
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
+    protected override void OnModelCreating(ModelBuilder modelBuilder){
         modelBuilder.Entity<CardPatient>(entity =>{
             entity.HasKey(e => e.IdCardPatient).HasName("card_patient_pkey");
             entity.ToTable("card_patient");
@@ -52,11 +47,6 @@ public partial class KlinikaContext : DbContext
             entity.Property(e => e.Note).HasMaxLength(255).HasColumnName("note");
             entity.Property(e => e.PatientId).HasColumnName("patient_id");
             entity.Property(e => e.Сonclusion).HasMaxLength(255).HasColumnName("сonclusion");
-            /**entity.HasOne(d => d.Patient).WithOne(p => p.CardPatient)
-                .HasForeignKey<CardPatient>(d => d.PatientId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("card_patient_patient_id_fkey");*/
-
             entity.HasMany(d => d.TypeComplaints).WithMany(p => p.CardPatients)
                 .UsingEntity<Dictionary<string, object>>(
                     "CardPatientComplaint",
@@ -115,10 +105,6 @@ public partial class KlinikaContext : DbContext
             entity.Property(e => e.IdDrug).HasColumnName("id_drug");
             entity.Property(e => e.DrugTreatmentId).HasColumnName("drug_treatment_id");
             entity.Property(e => e.Name).HasMaxLength(255).HasColumnName("name");
-           /** entity.HasOne(d => d.DrugTreatment).WithMany(p => p.Drugs)
-                .HasForeignKey(d => d.DrugTreatmentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("drug_drug_treatment_id_fkey");*/
         });
 
         modelBuilder.Entity<DrugTreatment>(entity =>{
@@ -141,9 +127,6 @@ public partial class KlinikaContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(30).HasColumnName("name");
             entity.Property(e => e.Phone).HasMaxLength(12).HasColumnName("phone");
             entity.Property(e => e.Surname).HasMaxLength(30).HasColumnName("surname");
-            /**entity.HasOne(d => d.Document).WithOne(p => p.Patient)
-                .HasForeignKey<Patient>(d => d.DocumentId)
-                .HasConstraintName("patient_document_id_fkey");*/
         });
 
         modelBuilder.Entity<RecordPatient>(entity =>{
@@ -155,12 +138,6 @@ public partial class KlinikaContext : DbContext
             entity.Property(e => e.DateRecord).HasColumnType("timestamp(6) without time zone").HasColumnName("date_record");
             entity.Property(e => e.DoctorId).HasColumnName("doctor_id");
             entity.Property(e => e.NumberRoom).HasColumnName("number_room");
-           /** entity.HasOne(d => d.CardPatient).WithMany(p => p.RecordPatients)
-                .HasForeignKey(d => d.CardPatientId)
-                .HasConstraintName("record_patient_card_patient_id_fkey");*/
-           /** entity.HasOne(d => d.Doctor).WithMany(p => p.RecordPatients)
-                .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("record_patient_doctor_id_fkey");*/
         });
 
         modelBuilder.Entity<RehabilitationSolution>(entity =>{
@@ -182,22 +159,6 @@ public partial class KlinikaContext : DbContext
             entity.Property(e => e.EndTimeTreatment).HasColumnType("timestamp(6) without time zone").HasColumnName("end_time_treatment");
             entity.Property(e => e.RehabilitationSolutionId).HasColumnName("rehabilitation_solution_id");
             entity.Property(e => e.TimeStartTreatment).HasColumnType("timestamp(6) without time zone").HasColumnName("time_start_treatment");
-            /**entity.HasOne(d => d.CardPatient).WithMany(p => p.Treatments)
-                .HasForeignKey(d => d.CardPatientId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("treatment_card_patient_id_fkey");*/
-           /** entity.HasOne(d => d.Doctor).WithMany(p => p.Treatments)
-                .HasForeignKey(d => d.DoctorId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("treatment_doctor_id_fkey");*/
-            /**entity.HasOne(d => d.Drug).WithMany(p => p.Treatments)
-                .HasForeignKey(d => d.DrugId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("treatment_drug_id_fkey");*/
-            /**entity.HasOne(d => d.RehabilitationSolution).WithMany(p => p.Treatments)
-                .HasForeignKey(d => d.RehabilitationSolutionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("treatment_rehabilitation_solution_id_fkey");*/
         });
 
         modelBuilder.Entity<TypeComplaint>(entity =>{
@@ -207,10 +168,6 @@ public partial class KlinikaContext : DbContext
             entity.Property(e => e.IdTypeComplaint).HasColumnName("id_type_complaint");
             entity.Property(e => e.ComplaintId).HasColumnName("complaint_id");
             entity.Property(e => e.Name).HasMaxLength(150).HasColumnName("name");
-            entity.HasOne(d => d.Complaint).WithMany(p => p.TypeComplaints)
-                  .HasForeignKey(d => d.ComplaintId)
-                  .OnDelete(DeleteBehavior.ClientSetNull)
-                  .HasConstraintName("type_complaint_complaint_id_fkey");
         });
 
         OnModelCreatingPartial(modelBuilder);
