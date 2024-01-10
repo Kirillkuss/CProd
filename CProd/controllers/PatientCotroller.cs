@@ -32,6 +32,21 @@ public partial class PatientCotroller{
             .WithOpenApi(operation => new(operation){ Summary = "Получение пациента по ИД",})
             .Produces<Patient>(StatusCodes.Status200OK)
             .Produces<BaseError>(StatusCodes.Status404NotFound)
-            .Produces<BaseError>(StatusCodes.Status500InternalServerError);   
+            .Produces<BaseError>(StatusCodes.Status500InternalServerError);
+
+        app.MapPost("/patient",  ( Patient patient, [DefaultValue("1")] int idDocument  ) => {
+                object? response = null;
+                using (KlinikaContext db = new KlinikaContext()){
+                       if( db.Documents.Find( idDocument ) == null ){
+                            return Results.Json( new BaseResponse( 400, "Документа с таким ИД не существует"), statusCode: 400 );
+                       }
+                    }
+                return response; })
+            .WithTags("2. Patients")
+            .WithDescription("Добавление пациента")
+            .WithOpenApi(operation => new(operation){ Summary = "Добавление пациента" })
+            .Produces<Patient>(StatusCodes.Status200OK)
+            .Produces<BaseError>(StatusCodes.Status404NotFound)
+            .Produces<BaseError>(StatusCodes.Status500InternalServerError);      
     }
 }

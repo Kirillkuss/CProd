@@ -1,5 +1,6 @@
 using System.ComponentModel;
 
+namespace CProd;
 /// <summary>
 /// Ошибка
 /// </summary>

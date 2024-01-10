@@ -4,17 +4,327 @@
         <name>CProd</name>
     </assembly>
     <members>
-        <member name="T:BaseError">
+        <member name="T:CProd.CardPatient">
+            <summary>
+            Карта пациента
+            </summary>
+        </member>
+        <member name="P:CProd.CardPatient.IdCardPatient">
+            <summary>
+            ИД карты пациента
+            </summary>
+        </member>
+        <member name="P:CProd.CardPatient.Diagnosis">
+            <summary>
+            Диагноз
+            </summary>
+        </member>
+        <member name="P:CProd.CardPatient.Allergy">
+            <summary>
+            Аллергия
+            </summary>
+        </member>
+        <member name="P:CProd.CardPatient.Note">
+            <summary>
+            Примечание
+            </summary>
+        </member>
+        <member name="P:CProd.CardPatient.Сonclusion">
+            <summary>
+            Заключение
+            </summary>
+        </member>
+        <member name="P:CProd.CardPatient.Patient">
+            <summary>
+            Пациент
+            </summary>
+        </member>
+        <member name="P:CProd.CardPatient.TypeComplaints">
+            <summary>
+            Список жалоб
+            </summary>
+        </member>
+        <member name="T:CProd.Complaint">
+            <summary>
+            Жалоба
+            </summary>
+        </member>
+        <member name="P:CProd.Complaint.IdComplaint">
+            <summary>
+            ИД жалобы
+            </summary>
+        </member>
+        <member name="P:CProd.Complaint.FunctionalImpairment">
+            <summary>
+            Наименование жалобы
+            </summary>
+        </member>
+        <member name="T:CProd.Doctor">
+            <summary>
+            Доктор
+            </summary>
+        </member>
+        <member name="P:CProd.Doctor.IdDoctor">
+            <summary>
+            ИД
+            </summary>
+        </member>
+        <member name="P:CProd.Doctor.Surname">
+            <summary>
+            Фамилия
+            </summary>
+        </member>
+        <member name="P:CProd.Doctor.Name">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="P:CProd.Doctor.FullName">
+            <summary>
+            Отчество
+            </summary>
+        </member>
+        <member name="T:CProd.Document">
+            <summary>
+            Документ
+            </summary>
+        </member>
+        <member name="P:CProd.Document.IdDocument">
+            <summary>
+            ИД
+            </summary>
+        </member>
+        <member name="P:CProd.Document.TypeDocument">
+            <summary>
+            Тип документа
+            </summary>
+        </member>
+        <member name="P:CProd.Document.Seria">
+            <summary>
+            Серия документа
+            </summary>
+        </member>
+        <member name="P:CProd.Document.Numar">
+            <summary>
+            Номер документа
+            </summary>
+        </member>
+        <member name="P:CProd.Document.Snils">
+            <summary>
+            СНИЛС
+            </summary>
+        </member>
+        <member name="P:CProd.Document.Polis">
+            <summary>
+            Полис
+            </summary>
+        </member>
+        <member name="T:CProd.Drug">
+            <summary>
+            Лекарство 
+            </summary>
+        </member>
+        <member name="P:CProd.Drug.IdDrug">
+            <summary>
+            ИД
+            </summary>
+        </member>
+        <member name="P:CProd.Drug.Name">
+            <summary>
+            Препараты
+            </summary>
+        </member>
+        <member name="P:CProd.Drug.DrugTreatment">
+            <summary>
+            Медикаментозное лечение
+            </summary>
+        </member>
+        <member name="T:CProd.DrugTreatment">
+            <summary>
+            Медикаментозное лечение
+            </summary>
+        </member>
+        <member name="P:CProd.DrugTreatment.IdDrugTreatment">
+            <summary>
+            ИД
+            </summary>
+        </member>
+        <member name="P:CProd.DrugTreatment.Name">
+            <summary>
+            Наименование
+            </summary>
+        </member>
+        <member name="T:CProd.Patient">
+            <summary>
+            Пациент
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.IdPatient">
+            <summary>
+            ИД
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.Surname">
+            <summary>
+            Фамилия
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.Name">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.FullName">
+            <summary>
+            Отчество
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.Gender">
+            <summary>
+            Пол
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.Phone">
+            <summary>
+            Номер телефона
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.Address">
+            <summary>
+            Адрес
+            </summary>
+        </member>
+        <member name="P:CProd.Patient.Document">
+            <summary>
+            Документ
+            </summary>
+        </member>
+        <member name="T:CProd.RecordPatient">
+            <summary>
+            Запись пациента
+            </summary>
+        </member>
+        <member name="P:CProd.RecordPatient.IdRecord">
+            <summary>
+            ИД
+            </summary>
+        </member>
+        <member name="P:CProd.RecordPatient.DateRecord">
+            <summary>
+            Дата записи
+            </summary>
+        </member>
+        <member name="P:CProd.RecordPatient.DateAppointment">
+            <summary>
+            Дата приема
+            </summary>
+        </member>
+        <member name="P:CProd.RecordPatient.NumberRoom">
+            <summary>
+            Кабинет
+            </summary>
+        </member>
+        <member name="P:CProd.RecordPatient.CardPatientId">
+            <summary>
+            ИД карты пациента
+            </summary>
+        </member>
+        <member name="P:CProd.RecordPatient.Doctor">
+            <summary>
+            Доктор
+            </summary>
+        </member>
+        <member name="T:CProd.RehabilitationSolution">
+            <summary>
+            Реабилитационное лечение
+            </summary>
+        </member>
+        <member name="P:CProd.RehabilitationSolution.IdRehabilitationSolution">
+            <summary>
+            ИД
+            </summary>
+        </member>
+        <member name="P:CProd.RehabilitationSolution.Name">
+            <summary>
+            Наименование
+            </summary>
+        </member>
+        <member name="P:CProd.RehabilitationSolution.SurveyPlan">
+            <summary>
+            План обследования
+            </summary>
+        </member>
+        <member name="T:CProd.Treatment">
+            <summary>
+            Лечение
+            </summary>
+        </member>
+        <member name="P:CProd.Treatment.IdTreatment">
+            <summary>
+            ИД
+            </summary>
+        </member>
+        <member name="P:CProd.Treatment.TimeStartTreatment">
+            <summary>
+            Дата начала лечения 
+            </summary>
+        </member>
+        <member name="P:CProd.Treatment.EndTimeTreatment">
+            <summary>
+            Дата окончания лечения
+            </summary>
+        </member>
+        <member name="P:CProd.Treatment.CardPatientId">
+            <summary>
+            ИД пациента
+            </summary>
+        </member>
+        <member name="P:CProd.Treatment.Doctor">
+            <summary>
+            Доктор
+            </summary>
+        </member>
+        <member name="P:CProd.Treatment.Drug">
+            <summary>
+            Медикаментозное лечение
+            </summary>
+        </member>
+        <member name="P:CProd.Treatment.RehabilitationSolution">
+            <summary>
+            Реабилитационное лечение
+            </summary>
+        </member>
+        <member name="T:CProd.TypeComplaint">
+            <summary>
+            Под жалоба
+            </summary>
+        </member>
+        <member name="P:CProd.TypeComplaint.IdTypeComplaint">
+            <summary>
+            ИД
+            </summary>
+        </member>
+        <member name="P:CProd.TypeComplaint.Name">
+            <summary>
+            Наименование под жалобы
+            </summary>
+        </member>
+        <member name="P:CProd.TypeComplaint.Complaint">
+            <summary>
+            Жалоба
+            </summary>
+        </member>
+        <member name="T:CProd.BaseError">
             <summary>
             Ошибка
             </summary>
         </member>
-        <member name="P:BaseError.code">
+        <member name="P:CProd.BaseError.code">
             <summary>
             Код
             </summary>
         </member>
-        <member name="P:BaseError.message">
+        <member name="P:CProd.BaseError.message">
             <summary>
             Сообщение
             </summary>

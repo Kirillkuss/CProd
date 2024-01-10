@@ -21,11 +21,18 @@ builder.Services.AddSwaggerGen(options =>{
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
-	
 builder.Services.AddControllers(); //поддержка контроллеров
-builder.Services.AddControllersWithViews();
 
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.SuppressMapClientErrors = true;
+    });
+
+    
+builder.Services.AddControllersWithViews();
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment()){
     app.UseSwagger();
